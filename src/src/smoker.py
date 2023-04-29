@@ -17,7 +17,7 @@ import pickle
 import logging as logger
 def load_data():
     logger.info('Loading data')
-    df = pd.read_csv('/Users/rianrachmanto/pypro/project/smoker-detection/data/raw/train_smokin.csv')
+    df = pd.read_csv('/Users/rianrachmanto/pypro/project/script/train_smokin.csv')
     logger.info('Data loaded')
     return df
 
