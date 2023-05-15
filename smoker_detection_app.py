@@ -1,6 +1,8 @@
 import pandas as pd
 import streamlit as st
 import requests
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.pipeline import Pipeline
 from joblib import load
 from io import BytesIO
 
