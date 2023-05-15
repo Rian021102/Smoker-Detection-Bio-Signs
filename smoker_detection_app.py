@@ -1,16 +1,18 @@
-
 import pandas as pd
 import streamlit as st
 import requests
 from joblib import load
+import tempfile
 
 # URL of the raw model file on GitHub
 model_url = "https://github.com/Rian021102/Smoker-Detection-Bio-Signs/raw/main/models/random_forest_pipeline.joblib"
 
 # Load the trained pipeline from the GitHub URL
 response = requests.get(model_url)
-pipeline = load(response.content)
-
+temp_file = tempfile.NamedTemporaryFile(delete=False)
+temp_file.write(response.content)
+temp_file.close()
+pipeline = load(temp_file.name)
 def preprocess_data(df):
     # Perform any necessary preprocessing here (e.g., dropping columns, renaming columns)
     df.drop(['LDL'], axis=1, inplace=True)
