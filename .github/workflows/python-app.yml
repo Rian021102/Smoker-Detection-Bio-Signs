@@ -1,7 +1,0 @@
-name: Python Application
-on:
-  push: 
-    branches: ["master"]
-  pull_request:       
-    branches: ["master"]
-  
