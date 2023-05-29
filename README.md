@@ -18,11 +18,11 @@ smoker-detection/
 │   ├── test_environment.py
 │   └── tox.ini
 └── README.md
-
+```
 
 ## Source Codes
 
-
+```text
 smoker-detection/
 ├── src
 │   ├── README.md
@@ -37,9 +37,9 @@ smoker-detection/
 │   ├── tox.ini
 │   └── train_model.py
 
-<!-- -->
+```
 
-
+## Source Code
 The source codes are located in smoker-detection/src, you will find
 ### loaddata.py
 This module to load, inspect and split the data into train and validation set
