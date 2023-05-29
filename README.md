@@ -2,7 +2,7 @@
 ## Project Description
 In this project, I make prediction whether or not a patient is a smoker using his/her bio signs. The goal of this project is to provide a prediction model to assist physician to prepare an intervention program for smoker.
 ## Folder Structure as Follow
-```text
+
 smoker-detection/
 ├──data
 │   ├── processed
@@ -19,13 +19,10 @@ smoker-detection/
 │   └── tox.ini
 └── README.md
 
-This is the end of the folder structure description.
-
-<!-- Separator -->
 
 ## Source Codes
 
-```text
+
 smoker-detection/
 ├── src
 │   ├── README.md
