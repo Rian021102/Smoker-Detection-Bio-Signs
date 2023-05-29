@@ -17,6 +17,7 @@ smoker-detection/
 │   ├── Smoker_Status_Prediction.ipynb
 │   ├── test_environment.py
 │   └── tox.ini
+└── README.md
 
 
 
