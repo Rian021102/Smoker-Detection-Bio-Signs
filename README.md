@@ -4,14 +4,15 @@ In this project, I make prediction whether or not a patient is a smoker using hi
 ## Folder Structure as Follow
 ```text
 smoker-detection/
-├-- data
+├──data
 │   ├── processed
 │   └── raw
 │       ├── test_smoking.csv
 │       └── train_smokin.csv
-|──- models
+├──models
 │   └── model.joblib
-├── notebooks
+|
+├──notebooks
 │   ├── README.md
 │   ├── Smoker_Status_Prediction.ipynb
 │   ├── test_environment.py
@@ -19,6 +20,21 @@ smoker-detection/
 
 
 ## Source Code
+```text
+smoker-detection/
+├── src
+│   ├── README.md
+│   ├── app.py
+│   ├── eda.py
+│   ├── loaddata.py
+│   ├── predict_model.py
+│   ├── preprocess.py
+│   ├── requirements.txt
+│   ├── setup.py
+│   ├── test_environment.py
+│   ├── tox.ini
+│   └── train_model.py
+
 The source codes are located in smoker-detection/src, you will find
 ### loaddata.py
 This module to load, inspect and split the data into train and validation set
