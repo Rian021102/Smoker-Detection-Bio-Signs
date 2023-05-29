@@ -1,42 +1,64 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import ttest_ind
 
-def eda(X_train, y_train):
+def eda(X_train,y_train):
     """
     A function for exploratory data analysis.
     
     Parameters:
     -----------
-    X_train : pandas.DataFrame
-        The input features for training the model.
-    y_train : pandas.Series
-        The target variable for training the model.
+    df : pandas.DataFrame
+        The input dataframe for analysis
         
     Returns:
     --------
-    None
+    pandas.DataFrame
+        The input dataframe for analysis, as is
     """
-    # Print the datafame shape
-    print(f"Shape: {X_train.shape}")
     
-    # Print dataframe info and datatypes
-    print(X_train.info())
-    print(X_train.dtypes)
-    
+    # Print df 5 first rows
+    print(X_train.head())
+
+    # Print df 5 last rows
+    print(X_train.tail())
+
     # Print the number of missing values
     print(f"Missing: {X_train.isnull().sum()}")
-
-    # print missing values more than half of the total rows
-    print(f"Missing more than half of the total rows: {X_train.columns[X_train.isnull().mean() > 0.5]}")
     
     # Print descriptive statistics
     print(X_train.describe())
-    
-    # Print the number of duplicates
-    print(f"Duplicates: {X_train.duplicated().sum()}")
-    
-    # Print the distribution of target variable
-    print(y_train.value_counts(normalize=True))
-    
-    return (X_train, y_train)
 
+    # Print Skewness
+    print(X_train.skew())
+
+
+    #print number of df['smoking'] using value_counts
+    print(y_train.value_counts())
+
+    #print tttest_ind for X_train
+    for col in X_train.columns:
+        print(ttest_ind(X_train[col], y_train))
+
+
+    #plot kdeplot for in loop
+    for col in X_train.columns:
+        plt.figure()
+        sns.kdeplot(X_train[col])
+        plt.title(col)
+    plt.show()
+
+    #plot boxplot for in loop
+    for col in X_train.columns:
+        plt.figure()
+        sns.boxplot(X_train[col])
+        plt.title(col)
+    plt.show()
+
+    #plot countplot value_counts for y_train
+    plt.figure()
+    sns.countplot(y_train)
+    plt.show()
+    return X_train, y_train
