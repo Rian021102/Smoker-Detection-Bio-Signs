@@ -60,7 +60,8 @@ dataset[(Dataset)]-->loaddata["loaddata.py"]
 loaddata-->eda["eda.py"]
 eda-->preprocess["preprocess.py"]
 preprocess-->trainmodel["train_model.py"]
-trainmodel-->predict["build-prediction using trained model"]
+trainmodel-->predict["prediction_model.py"]
+newdata["Test-Data"]-->predict
 
 
  ```
