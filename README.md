@@ -74,7 +74,7 @@ This module is to test all the modules
 ```mermaid
 flowchart TD
 dataset[(Dataset)]-->loaddata["loaddata.py"]
-sourcecode-->eda["eda.py"]
+loaddata-->eda["eda.py"]
 eda-->preprocess["preprocess.py"]
 preprocess-->trainmodel["train_model.py"]
 trainmodel-->predict["build-prediction using trained model"]
