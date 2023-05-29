@@ -19,7 +19,9 @@ smoker-detection/
 │   └── tox.ini
 └── README.md
 
----
+This is the end of the folder structure description.
+
+<!-- Separator -->
 
 ## Source Codes
 
