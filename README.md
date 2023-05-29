@@ -78,6 +78,6 @@ sourcecode-->eda["eda.py"]
 eda-->preprocess["preprocess.py"]
 preprocess-->trainmodel["train_model.py"]
 trainmodel-->predict["build-prediction using trained model"]
-newdata["test-data]-->predict
+
 
  ```
