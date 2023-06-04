@@ -13,8 +13,17 @@ def load_model():
 model = load_model()
 
 def preprocess_data(df):
+    
+    #setting new columns name
+    new_columns={'height(cm)':'height', 'weight(kg)':'weight', 'waist(cm)':'waist', 'eyesight(left)':'eyesigth_left', 
+                 'eyesight(right)':'eyesight_right', 'hearing(left)':'hearing_left', 
+                 'hearing(right)':'hearing_right', 'fasting blood sugar':'fasting_blood_sugar', 
+                 'Urine protein':'urine_protein', 'serum creatinine':'serum_creatinine', 
+                 'dental caries':'dental_caries'}
+    df=df.rename(columns=new_columns)
+    
     # Perform any necessary preprocessing here (e.g., dropping columns, renaming columns)
-    df.drop(['LDL', 'relaxation', 'waist(cm)'], axis=1, inplace=True)
+    df.drop(['LDL', 'relaxation', 'waist'], axis=1, inplace=True)
     
     # Scale the data using StandardScaler
     scaler = StandardScaler()

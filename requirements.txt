@@ -11,5 +11,6 @@ joblib
 python-dotenv>=0.5.1
 pandas
 scikit-learn
+flask
 streamlit
 gdown
