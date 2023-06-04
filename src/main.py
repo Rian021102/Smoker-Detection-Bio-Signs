@@ -21,7 +21,7 @@ def main():
 
     # Train the model
     train(X_train_sm, y_train_sm, X_test_scaled, y_test)
-    print('Model trained')
+    print('Models trained')
 
     
     

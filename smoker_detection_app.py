@@ -1,39 +1,40 @@
 import pandas as pd
 import streamlit as st
-import requests
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.pipeline import Pipeline
-from joblib import load
-from io import BytesIO
+import pickle
+from sklearn.preprocessing import StandardScaler
+from functools import lru_cache
 
-# Load the trained pipeline
-@st.cache(allow_output_mutation=True)
-def load_pipeline():
-    url = "https://github.com/Rian021102/Smoker-Detection-Bio-Signs/raw/main/random_forest_pipeline.joblib"
-    response = requests.get(url)
-    return load(BytesIO(response.content))
+# Load the trained model
+@lru_cache(maxsize=1)
+def load_model():
+    with open('/Users/rianrachmanto/pypro/project/smoker-detection/models/model.pkl', 'rb') as f:
+        return pickle.load(f)
 
-pipeline = load_pipeline()
-
+model = load_model()
 
 def preprocess_data(df):
     # Perform any necessary preprocessing here (e.g., dropping columns, renaming columns)
-    df.drop(['LDL'], axis=1, inplace=True)
-    df.drop(['relaxation'], axis=1, inplace=True)
-    df.drop(['waist(cm)'],axis=1, inplace=True)
+    df.drop(['LDL', 'relaxation', 'waist(cm)'], axis=1, inplace=True)
+    
+    # Scale the data using StandardScaler
+    scaler = StandardScaler()
+    df = scaler.fit_transform(df)
+    
     return df
 
 def predict(df):
     # Preprocess the input data
+    df2 = df.copy()
     df = preprocess_data(df)
-    
-    # Make predictions using the pipeline
-    predictions = pipeline.predict(df)
-    
-    # Add the predictions as a new column in the dataframe
-    df['Prediction'] = predictions
-    
-    return df
+
+    # Make predictions using the model
+    predictions = model.predict(df)
+
+    # Create a new column 'Prediction' with labels 'Non-Smoker' and 'Smoker'
+    predictions_labels = ['Non-Smoker' if pred == 0 else 'Smoker' for pred in predictions]
+    df2['Prediction'] = predictions_labels
+
+    return df2
 
 def main():
     st.title("Smoker Detection Prediction Using Machine Learning")
@@ -55,5 +56,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-

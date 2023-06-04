@@ -2,7 +2,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.pipeline import Pipeline
-import joblib
+import pickle
 
 PARAM_GRID = [
     {
@@ -34,7 +34,9 @@ def train(X_train_sm, y_train_sm, X_test_scaled, y_test):
     print(f'F1: {f1}')
 
     # Save trained model
-    joblib.dump(best_clf, '/Users/rianrachmanto/pypro/project/smoker-detection/models/model.joblib')
+    with open('/Users/rianrachmanto/pypro/project/smoker-detection/models/model.pkl', 'wb') as f:
+        pickle.dump(best_clf, f)
+
 
     return {
         'accuracy': accuracy,
