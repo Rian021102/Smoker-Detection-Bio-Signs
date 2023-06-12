@@ -1,0 +1,65 @@
+.
+├── API
+│   └── python_api.py
+├── README.md
+├── __pycache__
+├── data
+│   ├── processed
+│   └── raw
+│       ├── test_smoking.csv
+│       └── train_smokin.csv
+├── docs
+│   └── conf.py
+├── folder_structure.txt
+├── models
+│   └── model.joblib
+├── notebooks
+│   ├── README.md
+│   ├── Smoker_Status_Prediction.ipynb
+│   ├── test_environment.py
+│   └── tox.ini
+├── random_forest_pipeline.joblib
+├── reports
+│   ├── Rangkuman_Project.pdf
+│   └── figures
+├── requirements.txt
+├── setup.py
+├── smoker_detection_app.py
+├── src
+│   ├── README.md
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-311.pyc
+│   │   ├── build_features.cpython-311.pyc
+│   │   ├── cleandata.cpython-311.pyc
+│   │   ├── eda.cpython-311.pyc
+│   │   ├── loaddata.cpython-311.pyc
+│   │   ├── loadsplit.cpython-311.pyc
+│   │   ├── preprocess.cpython-311.pyc
+│   │   └── train_model.cpython-311.pyc
+│   ├── app.py
+│   ├── docs
+│   │   ├── Makefile
+│   │   ├── commands.rst
+│   │   ├── conf.py
+│   │   ├── getting-started.rst
+│   │   ├── index.rst
+│   │   └── make.bat
+│   ├── eda.py
+│   ├── loaddata.py
+│   ├── predict_model.py
+│   ├── preprocess.py
+│   ├── requirements.txt
+│   ├── setup.py
+│   ├── test_environment.py
+│   ├── tox.ini
+│   └── train_model.py
+├── src.egg-info
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   ├── dependency_links.txt
+│   └── top_level.txt
+├── test_environment.py
+└── tox.ini
+
+15 directories, 48 files
