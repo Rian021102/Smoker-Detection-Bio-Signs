@@ -23,7 +23,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+          password: ${{ secrets.DOCKER_HUB_SECRET }}
       - name: Docker Compose Build and Push
         run: |
           docker-compose build --no-cache
