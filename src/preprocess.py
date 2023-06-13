@@ -51,7 +51,7 @@ def preprocess(X_train, y_train, X_test):
     X_train_sm, y_train_sm = sm.fit_resample(X_train_scaled, y_train)
 
     # Save the scaler as a pickle file
-    joblib.dump(scaler, "/Users/rianrachmanto/pypro/project/smoker-detection/models/scaler.pkl")
+    joblib.dump(scaler, "/Users/rianrachmanto/pypro/project/Smoker-Detection-Bio-Signs/models/scaler.pkl")
     
 
    

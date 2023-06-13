@@ -34,7 +34,7 @@ def train(X_train_sm, y_train_sm, X_test_scaled, y_test):
     print(f'F1: {f1}')
 
     # Save trained model
-    with open('/Users/rianrachmanto/pypro/project/smoker-detection/models/model.pkl', 'wb') as f:
+    with open('/Users/rianrachmanto/pypro/project/Smoker-Detection-Bio-Signs/models/model.pkl', 'wb') as f:
         pickle.dump(best_clf, f)
 
 
