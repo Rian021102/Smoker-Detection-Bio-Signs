@@ -26,9 +26,9 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_SECRET }}
       - name: Docker Compose Build and Push
         run: |
-          cd Smoker-Detection-Bio-Signs
-          docker-compose -f API/docker-compose.yaml build --no-cache
-          docker-compose -f API/docker-compose.yaml push
+          cd API
+          docker-compose build --no-cache
+          docker-compose push
 
   docker-pull-ec2:
     needs: docker-compose-build
