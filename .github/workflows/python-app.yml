@@ -37,7 +37,7 @@ jobs:
           cat >> ~/.ssh/config << END
           Host deploy_ec2
             HostName 108.137.69.107
-            User $SSH_USER
+            User ${{ env.SSH_USER }}
             IdentityFile ~/.ssh/RianRkey.pem
             StrictHostKeyChecking no
           END
