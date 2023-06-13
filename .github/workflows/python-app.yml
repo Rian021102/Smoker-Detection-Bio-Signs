@@ -26,24 +26,19 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_SECRET }}
       - name: Docker Compose Build and Push
         run: |
-          cd API
+          cd Smoker-Detection-Bio-Signs/API
           docker-compose build --no-cache
           docker-compose push
-
-  docker-pull-ec2:
-    needs: docker-compose-build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Creating SSH Configuration File
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          DOCKER_USER: ${{ secrets.DOCKER_HUB_USER }}
+      - name: Copy SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/RianRkey.pem
+          cp /Users/rianrachmanto/pypro/.ssh/RianRkey.pem ~/.ssh/
           chmod 600 ~/.ssh/RianRkey.pem
+      - name: Deploy to EC2
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
           cat >> ~/.ssh/config << END
           Host deploy_ec2
             HostName $SSH_HOST
@@ -56,6 +51,6 @@ jobs:
           ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
           ssh deploy_ec2 "rm -rf temp/"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && git lfs pull"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker compose rm -sf api"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker compose pull && sudo docker compose up -d"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
