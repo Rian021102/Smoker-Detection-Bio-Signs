@@ -24,25 +24,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_SECRET }}
-      - name: Docker Compose Build and Push
-        run: |
-          cd API
-          docker-compose build --no-cache
-          docker-compose push
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
-          cp /Users/rianrachmanto/pypro/.ssh/RianRkey.pem ~/.ssh/
-          chmod 400 ~/.ssh/RianRkey.pem
+          ssh-keyscan -H 108.137.69.107 >> ~/.ssh/known_hosts
           echo "Host deploy_ec2
                 HostName 108.137.69.107
                 User ec2-user
-                IdentityFile ~/.ssh/RianRkey.pem
                 StrictHostKeyChecking no" > ~/.ssh/config
-        shell: /usr/bin/bash -e {0}
-        env:
-          pythonLocation: /opt/hostedtoolcache/Python/3.10.11/x64
-          LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.10.11/x64/lib
       - name: Deploy to EC2
         run: |
           ssh deploy_ec2 "mkdir temp/"
@@ -54,3 +43,5 @@ jobs:
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
         shell: /usr/bin/bash -e {0}
+        env:
+          SSH_USER: ec2-user
