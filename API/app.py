@@ -21,10 +21,10 @@ class NumpyJSONEncoder(json.JSONEncoder):
 app = FastAPI()
 
 # Load the scaler
-scaler = joblib.load('/Users/rianrachmanto/pypro/project/smoker-detection/models/scaler.pkl')
+scaler = joblib.load('/Users/rianrachmanto/pypro/project/Smoker-Detection-Bio-Signs/models/scaler.pkl')
 
 # Load the saved model
-with open('/Users/rianrachmanto/pypro/project/smoker-detection/models/model.pkl', 'rb') as f:
+with open('/Users/rianrachmanto/pypro/project/Smoker-Detection-Bio-Signs/models/model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Create a class that describes the input

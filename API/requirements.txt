@@ -1,0 +1,12 @@
+click
+Sphinx
+coverage
+awscli==1.27.132
+flake8
+joblib
+python-dotenv>=0.5.1
+pandas
+numpy
+scikit-learn
+flask
+gdown
