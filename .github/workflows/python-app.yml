@@ -29,21 +29,21 @@ jobs:
           cd API
           docker-compose build --no-cache
           docker-compose push
-      - name: Deploy to EC2
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
+      - name: Copy SSH key and configure SSH
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > ~/.ssh/RianRkey.pem
           chmod 600 ~/.ssh/RianRkey.pem
           cat >> ~/.ssh/config << END
           Host deploy_ec2
-            HostName $SSH_HOST
+            HostName 108.137.69.107
             User $SSH_USER
             IdentityFile ~/.ssh/RianRkey.pem
             StrictHostKeyChecking no
           END
+
+      - name: Deploy to EC2
+        run: |
           ssh deploy_ec2 "mkdir temp/"
           ssh deploy_ec2 "git clone git@github.com:Rian021102/Smoker-Detection-Bio-Signs.git temp/"
           ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
@@ -52,3 +52,8 @@ jobs:
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
+        shell: /usr/bin/bash -e {0}
+        env:
+          SSH_USER: rian021102
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          DOCKER_USER: rian021102
