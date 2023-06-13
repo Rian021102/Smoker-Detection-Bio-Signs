@@ -37,10 +37,14 @@ jobs:
           cat >> ~/.ssh/config << END
           Host deploy_ec2
             HostName 108.137.69.107
-            User ${{ env.SSH_USER }}
+            User $SSH_USER
             IdentityFile ~/.ssh/RianRkey.pem
             StrictHostKeyChecking no
           END
+        shell: bash
+        env:
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
 
       - name: Deploy to EC2
         run: |
@@ -52,7 +56,7 @@ jobs:
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
-        shell: /usr/bin/bash -e {0}
+        shell: bash
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
