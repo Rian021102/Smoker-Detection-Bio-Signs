@@ -26,7 +26,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_SECRET }}
       - name: Docker Compose Build and Push
         run: |
-          cd Smoker-Detection-Bio-Signs/API
+          cd API
           docker-compose build --no-cache
           docker-compose push
       - name: Copy SSH key
