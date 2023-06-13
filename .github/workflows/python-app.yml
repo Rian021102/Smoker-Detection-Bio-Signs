@@ -29,16 +29,14 @@ jobs:
           cd API
           docker-compose build --no-cache
           docker-compose push
-      - name: Copy SSH key
-        run: |
-          mkdir -p ~/.ssh
-          cp /Users/rianrachmanto/pypro/.ssh/RianRkey.pem ~/.ssh/
-          chmod 600 ~/.ssh/RianRkey.pem
       - name: Deploy to EC2
         env:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
         run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/RianRkey.pem
+          chmod 600 ~/.ssh/RianRkey.pem
           cat >> ~/.ssh/config << END
           Host deploy_ec2
             HostName $SSH_HOST
