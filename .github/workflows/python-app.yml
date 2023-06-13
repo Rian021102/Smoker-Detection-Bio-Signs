@@ -24,28 +24,16 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_SECRET }}
-      - name: Docker Compose Build and Push
-        run: |
-          cd API
-          docker-compose build --no-cache
-          docker-compose push
       - name: Copy SSH key and configure SSH
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/RianRkey.pem
-          chmod 600 ~/.ssh/RianRkey.pem
-          cat >> ~/.ssh/config << END
-          Host deploy_ec2
-            HostName 108.137.69.107
-            User $SSH_USER
-            IdentityFile ~/.ssh/RianRkey.pem
-            StrictHostKeyChecking no
-          END
-        shell: bash
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-
+          cp /Users/rianrachmanto/pypro/.ssh/RianRkey.pem ~/.ssh/
+          chmod 400 ~/.ssh/RianRkey.pem
+          echo "Host deploy_ec2
+                HostName 108.137.69.107
+                User ec2-user
+                IdentityFile ~/.ssh/RianRkey.pem
+                StrictHostKeyChecking no" > ~/.ssh/config
       - name: Deploy to EC2
         run: |
           ssh deploy_ec2 "mkdir temp/"
@@ -56,8 +44,6 @@ jobs:
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
-        shell: bash
+        shell: /usr/bin/bash -e {0}
         env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          SSH_USER: ec2-user
