@@ -39,29 +39,22 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
           DOCKER_USER: ${{ secrets.DOCKER_HUB_USER }}
-        run:
-          - name: Create SSH directory
-            run: mkdir -p ~/.ssh
-          - name: Write SSH private key to file
-            run: echo "$SSH_KEY" > ~/.ssh/RianRkey.pem
-          - name: Set permissions for SSH private key
-            run: chmod 600 ~/.ssh/RianRkey.pem
-          - name: Configure SSH
-            run: |
-              cat >> ~/.ssh/config << END
-              Host deploy_ec2
-                HostName $SSH_HOST
-                User $SSH_USER
-                IdentityFile ~/.ssh/RianRkey.pem
-                StrictHostKeyChecking no
-              END
-          - name: Deploy to EC2
-            run: |
-              ssh deploy_ec2 "mkdir temp/"
-              ssh deploy_ec2 "git clone git@github.com:Rian021102/Smoker-Detection-Bio-Signs.git temp/"
-              ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
-              ssh deploy_ec2 "rm -rf temp/"
-              ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && git lfs pull"
-              ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker compose rm -sf api"
-              ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api"
-              ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker compose pull && sudo docker compose up -d"
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/RianRkey.pem
+          chmod 600 ~/.ssh/RianRkey.pem
+          cat >> ~/.ssh/config << END
+          Host deploy_ec2
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/RianRkey.pem
+            StrictHostKeyChecking no
+          END
+          ssh deploy_ec2 "mkdir temp/"
+          ssh deploy_ec2 "git clone git@github.com:Rian021102/Smoker-Detection-Bio-Signs.git temp/"
+          ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
+          ssh deploy_ec2 "rm -rf temp/"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && git lfs pull"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker compose rm -sf api"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker compose pull && sudo docker compose up -d"
