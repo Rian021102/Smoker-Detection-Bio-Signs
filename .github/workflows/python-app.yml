@@ -30,7 +30,7 @@ jobs:
           ssh-keyscan -H 108.137.69.107 >> ~/.ssh/known_hosts
           echo "Host deploy_ec2
                 HostName 108.137.69.107
-                User ec2-user
+                User rian021102
                 StrictHostKeyChecking no" > ~/.ssh/config
       - name: Deploy to EC2
         run: |
@@ -44,4 +44,4 @@ jobs:
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
         shell: /usr/bin/bash -e {0}
         env:
-          SSH_USER: ec2-user
+          SSH_USER: rian021102
