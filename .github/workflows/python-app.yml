@@ -54,6 +54,6 @@ jobs:
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
         shell: /usr/bin/bash -e {0}
         env:
-          SSH_USER: rian021102
+          SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_KEY }}
-          DOCKER_USER: rian021102
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
