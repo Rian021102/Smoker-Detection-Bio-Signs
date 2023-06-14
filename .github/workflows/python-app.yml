@@ -55,6 +55,6 @@ jobs:
           rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/
           rm -rf temp/
           cd Smoker-Detection-Bio-Signs/ && git lfs pull
-          cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf api"
+          cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf api
           cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api
           cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d
