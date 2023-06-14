@@ -51,7 +51,7 @@ jobs:
       - name: Deploy to EC2
         run: |
           mkdir temp/
-          git clone git@github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/
+          git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/
           rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/
           rm -rf temp/
           cd Smoker-Detection-Bio-Signs/ && git lfs pull
