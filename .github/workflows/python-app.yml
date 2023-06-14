@@ -56,12 +56,13 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh deploy_ec2 "if [ -e temp/ ]; then rm -rf temp/; fi"
-          ssh deploy_ec2 "mkdir temp/"
-          ssh deploy_ec2 "git clone git@github.com:Rian021102/Smoker-Detection-Bio-Signs.git temp/"
-          ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
-          ssh deploy_ec2 "rm -rf temp/"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && git lfs pull"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf API"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs-api"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
+          ssh ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com "if [ -e temp/ ]; then rm -rf temp/; fi"
+          ssh ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com "mkdir temp/"
+          ssh ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com "git clone git@github.com:Rian021102/Smoker-Detection-Bio-Signs.git temp/"
+          ssh ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
+          ssh ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com "rm -rf temp/"
+          ssh ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com "cd Smoker-Detection-Bio-Signs/ && git lfs pull"
+          ssh ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf API"
+          ssh ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs-api"
+          ssh ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
+
