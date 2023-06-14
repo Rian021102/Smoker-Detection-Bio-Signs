@@ -23,8 +23,8 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_SECRET }}
       - name: Docker compose Build and Push
         run: |
-          docker compose build --no-cache
-          docker compose push
+          docker-compose build --no-cache
+          docker-compose push
 
   docker-pull-ec2:
     needs: docker-compose-build
