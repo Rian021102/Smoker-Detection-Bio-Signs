@@ -51,10 +51,6 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh-keygen -R ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com
-
-          touch ~/.ssh/known_hosts
-          ssh-keyscan ec2-108-137-69-107.ap-southeast-3.compute.amazonaws.com >> ~/.ssh/known_hosts
-
           ssh deploy_ec2 "mkdir temp/"
           ssh deploy_ec2 "git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/"
           ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
