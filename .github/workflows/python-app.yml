@@ -50,8 +50,11 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh-keygen -R ${{ secrets.SSH_HOST }}
-          ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+          ssh-keygen -R ***
+
+          touch ~/.ssh/known_hosts
+          ssh-keyscan *** >> ~/.ssh/known_hosts
+
           ssh deploy_ec2 "mkdir temp/"
           ssh deploy_ec2 "git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/"
           ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
