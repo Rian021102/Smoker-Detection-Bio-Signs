@@ -50,11 +50,11 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh deploy_ec2 "mkdir temp/"
-          ssh deploy_ec2 "git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/"
-          ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
-          ssh deploy_ec2 "rm -rf temp/"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && git lfs pull"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf api"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
+          mkdir temp/
+          git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/
+          rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/
+          rm -rf temp/
+          cd Smoker-Detection-Bio-Signs/ && git lfs pull
+          cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf api"
+          cd Smoker-Detection-Bio-Signs/ && sudo docker rmi Rian021102/smoker-detection-bio-signs_api
+          cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d
