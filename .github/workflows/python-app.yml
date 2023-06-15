@@ -43,14 +43,14 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           DOCKER_USER: ${{ secrets.DOCKER_HUB_USER }}
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_KEY" > ~/.ssh/deployment.pem
-          chmod 600 ~/.ssh/deployment.pem
-          cat >> ~/.ssh/config << END
+          mkdir -p $HOME/.ssh
+          echo "$SSH_KEY" > $HOME/.ssh/deployment.pem
+          chmod 600 $HOME/.ssh/deployment.pem
+          cat >> $HOME/.ssh/config << END
           Host deploy_ec2
             HostName $SSH_HOST
             User $SSH_USER
-            IdentityFile ~/.ssh/deployment.pem
+            IdentityFile $HOME/.ssh/deployment.pem
             StrictHostKeyChecking no
           END
 
