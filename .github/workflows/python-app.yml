@@ -61,8 +61,9 @@ jobs:
           ssh deploy_ec2 "git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git"
           ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
           ssh deploy_ec2 "rm -rf temp/"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && git lfs pull"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && git lfs install && git lfs pull"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && docker compose rm -sf API"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && docker run Rian021102/smoker-detection-bio-signs-api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && docker compose pull && docker compose up -d"
+
 
