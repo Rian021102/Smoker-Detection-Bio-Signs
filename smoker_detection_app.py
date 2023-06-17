@@ -7,7 +7,7 @@ from functools import lru_cache
 # Load the trained model
 @lru_cache(maxsize=1)
 def load_model():
-    with open('/Users/rianrachmanto/pypro/project/smoker-detection/models/model.pkl', 'rb') as f:
+    with open('models/model.pkl', 'rb') as f:
         return pickle.load(f)
 
 model = load_model()
@@ -62,6 +62,16 @@ def main():
             predictions_df = predict(df)
             st.subheader("Predictions")
             st.write(predictions_df)
+
+            # Display the number of smokers and non-smokers
+            st.subheader("Number of Smokers and Non-Smokers")
+            smokers = predictions_df[predictions_df['Prediction'] == 'Smoker']
+            non_smokers = predictions_df[predictions_df['Prediction'] == 'Non-Smoker']  
+            st.write("Number of Smokers: ", len(smokers))
+            st.write("Number of Non-Smokers: ", len(non_smokers))
+
+    
+
 
 if __name__ == '__main__':
     main()
