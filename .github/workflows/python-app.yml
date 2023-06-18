@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          lfs: true
+          lfs: True
       - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
@@ -26,12 +26,11 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-
-      - name: Docker Compose Build and Push
+      - name: Docker compose Build and Push
         run: |
           cd ./API
-          sudo docker-compose build --no-cache
-          sudo docker-compose push
+          docker-compose build --no-cache
+          docker-compose push
 
   docker-pull-ec2:
     needs: docker-compose-build
@@ -64,5 +63,8 @@ jobs:
           ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
           ssh deploy_ec2 "rm -rf temp/"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker compose rm -sf API"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi rian021102/smoker-detection-bio-signs-api"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ || sudo docker rmi rian021102/smoker-detection-bio-signs-api"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker compose pull && sudo docker compose up -d"
+
+
+
