@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          lfs: True
+          lfs: true
       - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
@@ -24,7 +24,9 @@ jobs:
       - name: Install Docker Compose
         run: |
           sudo apt-get update
-          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y docker-compose
+          sudo apt-get -y install curl
+          sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -35,8 +37,8 @@ jobs:
       - name: Docker Compose Build and Push
         run: |
           cd ./API
-          docker-compose build --no-cache
-          docker-compose push
+          sudo docker-compose build --no-cache
+          sudo docker-compose push
 
   docker-pull-ec2:
     needs: docker-compose-build
@@ -68,6 +70,6 @@ jobs:
           ssh deploy_ec2 "git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/"
           ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
           ssh deploy_ec2 "rm -rf temp/"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker compose rm -sf API"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf API"
           ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker rmi rian021102/smoker-detection-bio-signs-api"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && docker-compose up -d"
+          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
