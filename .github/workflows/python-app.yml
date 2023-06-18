@@ -56,14 +56,16 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh deploy_ec2 "if [ -e temp/ ]; then rm -rf temp/; fi"
-          ssh deploy_ec2 "rm -rf Smoker-Detection-Bio-Signs/"
-          ssh deploy_ec2 "mkdir temp/"
-          ssh deploy_ec2 "git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/"
-          ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
-          ssh deploy_ec2 "rm -rf temp/"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose rm -sf API"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ || sudo docker rmi rian021102/smoker-detection-bio-signs-api"
-          ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && sudo docker-compose pull && sudo docker-compose up -d"
+          name: Deploy to EC2
+          run: |
+            ssh deploy_ec2 "if [ -e temp/ ]; then rm -rf temp/; fi"
+            ssh deploy_ec2 "rm -rf Smoker-Detection-Bio-Signs/"
+            ssh deploy_ec2 "mkdir temp/"
+            ssh deploy_ec2 "git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/"
+            ssh deploy_ec2 "rsync -a ./temp/ ./Smoker-Detection-Bio-Signs/"
+            ssh deploy_ec2 "rm -rf temp/"
+            ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && docker-compose rm -sf API"
+            ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && docker rmi rian021102/smoker-detection-bio-signs-api"
+            ssh deploy_ec2 "cd Smoker-Detection-Bio-Signs/ && docker-compose pull && docker-compose up -d"
 
 
