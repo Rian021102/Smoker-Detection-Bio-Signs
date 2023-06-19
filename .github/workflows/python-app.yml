@@ -28,6 +28,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: Docker compose Build and Push
         run: |
+          cd ./API
           docker compose build --no-cache
           docker compose push
 
