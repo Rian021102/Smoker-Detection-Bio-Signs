@@ -58,6 +58,7 @@ jobs:
         run: |
           ssh deploy_ec2 "if [ -e temp/ ]; then rm -rf temp/; fi"
           ssh deploy_ec2 "rm -rf Smoker-Detection-Bio-Signs/"
+          ssh deploy_ec2 "rm -rf ml_process_demo/"
           ssh deploy_ec2 "mkdir temp/"
           ssh deploy_ec2 "mkdir ml_process_demo/"
           ssh deploy_ec2 "git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/"
