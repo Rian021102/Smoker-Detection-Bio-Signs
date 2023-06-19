@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          lfs: true
+          lfs: True
       - name: Set up Python 3.11
         uses: actions/setup-python@v3
         with:
@@ -26,12 +26,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
-
-      - name: Docker Compose Build and Push
-        working-directory: ./API
+      - name: Docker compose Build and Push
         run: |
-          docker-compose build --no-cache
-          docker-compose push
+          docker compose build --no-cache
+          docker compose push
 
   docker-pull-ec2:
     needs: docker-compose-build
@@ -56,12 +54,18 @@ jobs:
           END
 
       - name: Deploy to EC2
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-          DOCKER_USER: ${{ secrets.DOCKER_HUB_USER }}
         run: |
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'docker stop smoker-detection-bio-signs-api || true'
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'docker rm smoker-detection-bio-signs-api || true'
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'docker pull $DOCKER_USER/smoker-detection-bio-signs-api:latest'
-          ssh -o StrictHostKeyChecking=no $SSH_USER@$SSH_HOST 'docker-compose -f ~/docker-compose.yml up -d'
+          ssh deploy_ec2 "if [ -e temp/ ]; then rm -rf temp/; fi"
+          ssh deploy_ec2 "rm -rf Smoker-Detection-Bio-Signs/"
+          ssh deploy_ec2 "mkdir temp/"
+          ssh deploy_ec2 "mkdir ml_process_demo/"
+          ssh deploy_ec2 "git clone https://github.com/Rian021102/Smoker-Detection-Bio-Signs.git temp/"
+          ssh deploy_ec2 "rsync -a ./temp/ ./ml_process_demo/"
+          ssh deploy_ec2 "rm -rf temp/"
+          ssh deploy_ec2 "cd ml_process_demo/ && git pull lfs"
+          ssh deploy_ec2 "cd ml_process_demo/ && sudo docker compose rm -rf API"
+          ssh deploy_ec2 "cd ml_process_demo/ || sudo docker rmi rian021102/smoker-detection-bio-signs-api"
+          ssh deploy_ec2 "cd ml_process_demo/ && sudo docker pull && sudo docker compose up -d"
+
+
+
