@@ -25,10 +25,6 @@ def preprocess_data(df):
     # Perform any necessary preprocessing here (e.g., dropping columns, renaming columns)
     df.drop(['LDL', 'relaxation', 'waist'], axis=1, inplace=True)
     
-    # Scale the data using StandardScaler
-    scaler = StandardScaler()
-    df = scaler.fit_transform(df)
-    
     return df
 
 def predict(df):
