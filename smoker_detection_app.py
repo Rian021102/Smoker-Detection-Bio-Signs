@@ -1,7 +1,6 @@
 import pandas as pd
 import streamlit as st
 import pickle
-from sklearn.preprocessing import StandardScaler
 from functools import lru_cache
 
 # Load the trained model
