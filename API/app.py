@@ -20,9 +20,6 @@ class NumpyJSONEncoder(json.JSONEncoder):
 # Create the app object
 app = FastAPI()
 
-# Load the scaler
-scaler = joblib.load('/Users/rianrachmanto/pypro/project/Smoker-Detection-Bio-Signs/models/scaler.pkl')
-
 # Load the saved model
 with open('/Users/rianrachmanto/pypro/project/Smoker-Detection-Bio-Signs/models/model.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -60,14 +57,24 @@ def get_name(name: str):
 
 @app.post('/predict')
 def predict_smoke(data: SmokeStatus):
-    data = data.dict()
-    # Scale the data
-    data = scaler.transform([[data[var] for var in data]])
+    # Convert the input data to a dictionary and extract the values
+    data_dict = data.dict()
+    data_values = list(data_dict.values())
+
+    # Convert the values to a 2D array
+    input_data = np.array([data_values])
+
     # Make prediction
-    prediction = model.predict(data)
-    # Convert prediction to a native Python data type
-    prediction = prediction.tolist()
-    return json.dumps(prediction, cls=NumpyJSONEncoder)
+    prediction = model.predict(input_data)
+
+    # Interpret the prediction
+    if prediction == 0:
+        smoker_status = "Non-Smoker"
+    else:
+        smoker_status = "Smoker"
+
+    return {"smoker_status": smoker_status}
+
 
 if __name__ == '__main__':
     uvicorn.run(app, host='127.0.0.1', port=8000)
