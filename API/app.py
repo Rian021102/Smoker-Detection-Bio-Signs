@@ -21,7 +21,7 @@ class NumpyJSONEncoder(json.JSONEncoder):
 app = FastAPI()
 
 # Load the saved model
-with open('/Users/rianrachmanto/pypro/project/Smoker-Detection-Bio-Signs/models/model.pkl', 'rb') as f:
+with open('models/model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Create a class that describes the input
