@@ -21,7 +21,7 @@ class NumpyJSONEncoder(json.JSONEncoder):
 app = FastAPI()
 
 # Load the saved model
-with open('ml_process_demo/models/model.pkl', 'rb') as f:
+with open('/home/ubuntu/ml_process_demo/models/model.pkl', 'rb') as f:
     model = pickle.load(f)
 
 # Create a class that describes the input
