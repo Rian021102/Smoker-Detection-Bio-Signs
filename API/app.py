@@ -5,6 +5,7 @@ import json
 import joblib
 import pickle
 import numpy as np
+import os
 
 class NumpyJSONEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -20,8 +21,12 @@ class NumpyJSONEncoder(json.JSONEncoder):
 # Create the app object
 app = FastAPI()
 
+# Get the absolute path of the models directory
+models_dir = os.path.join(os.path.dirname(__file__), 'models')
+
 # Load the saved model
-with open('./models/model.pkl', 'rb') as f:
+model_path = os.path.join(models_dir, 'model.pkl')
+with open(model_path, 'rb') as f:
     model = pickle.load(f)
 
 # Create a class that describes the input
