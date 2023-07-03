@@ -29,8 +29,8 @@ jobs:
       - name: Docker compose Build and Push
         run: |
           cd ./API
-          docker compose build --no-cache
-          docker compose push
+          docker-compose build --no-cache
+          docker-compose push
 
   docker-pull-ec2:
     needs: docker-compose-build
@@ -66,7 +66,3 @@ jobs:
           ssh deploy_ec2 "rm -rf temp/"
           ssh deploy_ec2 "cd ml_process_demo/ || sudo docker rmi rian021102/smoker-detection-bio-signs-api"
           ssh deploy_ec2 "cd ml_process_demo/API && sudo docker-compose pull && sudo docker-compose up -d"
-
-
-
-
