@@ -15,7 +15,6 @@ class NumpyJSONEncoder(json.JSONEncoder):
             return obj.tolist()
         return super().default(obj)
 
-
 # Create the app object
 app = FastAPI()
 
@@ -73,6 +72,5 @@ def predict_smoke(data: SmokeStatus):
 
     return {"smoker_status": smoker_status}
 
-
 if __name__ == '__main__':
-    uvicorn.run(app, host='0.0.0.0', port=8080)
+    uvicorn.run("app:app", host='0.0.0.0', port=8080)

@@ -17,8 +17,6 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # Upgrade pip and install Python dependencies from requirements.txt
 RUN pip install --upgrade pip && pip install -r requirements.txt
-RUN pip install uvicorn
-
 
 # Copy the entire application code to the working directory
 COPY . /app
@@ -27,5 +25,4 @@ COPY . /app
 EXPOSE 8080
 
 # Define the command to run the application
-CMD ["uvicorn", "API.app:app", "--host", "0.0.0.0", "--port", "8080"]
-
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
