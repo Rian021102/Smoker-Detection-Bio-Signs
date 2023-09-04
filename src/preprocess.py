@@ -41,9 +41,7 @@ def preprocess(X_train, y_train, X_test):
     X_train, y_train = X_train[mask, :], y_train[mask]
 
 
-    # Resample the data
-    sm = SMOTE(random_state=42)
-    X_train_sm, y_train_sm = sm.fit_resample(X_train, y_train)
+
 
    
-    return X_train_sm, y_train_sm, X_test
+    return X_train, y_train, X_test
