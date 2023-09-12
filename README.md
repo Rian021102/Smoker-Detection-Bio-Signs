@@ -43,6 +43,12 @@ In conclusion, this comprehensive solution for predicting smoking status based o
 
 This project not only improves patient care and outcomes but also contributes to the larger goal of reducing the impact of smoking-related diseases on public health. By creating a reliable and accessible method for assessing smoking status, healthcare providers can take proactive measures to help individuals quit smoking and mitigate the associated health risks. This end-to-end machine learning solution represents a significant step toward more informed and effective healthcare interventions.
 
+## ML Demo Using Huggingface
+Eventhough this project provides CI/CD using github action and continuesly deployment to AWS, keep instances running is quite expensive, hence for the sake of demoing this project I decided to utilize huggingface space for model deployment. In the demo, I'm using Fastapi combined with gradio to create a simple interactive web. You can use data in /data/raw/test_smoking.csv for demo. You can access the demo in this address:
+https://huggingface.co/spaces/Rianknow/smoker-status
+
+
+
 ## ML Workflow
 
 ```mermaid
